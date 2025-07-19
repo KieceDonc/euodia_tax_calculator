@@ -12,5 +12,16 @@ public interface TaxStrategy {
 
     BigDecimal calculateTax(Product product);
 
+    /**
+     * Calcule le prix final incluant les taxes
+     *
+     * @param product le produit pour lequel calculer le prix final
+     * @return le prix du produit + taxes
+     */
+    default BigDecimal calculateFinalPrice(Product product) {
+        BigDecimal tax = calculateTax(product);
+        return product.getPrice().add(tax);
+    }
+
     String getStrategyName();
 }
